@@ -36,7 +36,7 @@ if __name__ == "__main__":
             break
 
         answer = ask_gemma(
-            prompt_file="../prompt.txt",
+            prompt_file="../config/prompt.txt",
             question=question,
             context=context
         )
