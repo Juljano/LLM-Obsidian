@@ -3,9 +3,8 @@ from gemma4 import ask_gemma
 import uuid
 from sql_conversation import *
 
-db_conversation = "../conversation/conversation_history.db"
-db_memory = "../conversation/memory.db"
-vault_path = Path("/home/janosch/AI-ML-Systems/AI & ML Systems")
+db_memory = "/home/janosch/KI & ML-Projekte/LLM-Obsidian/conversation/memory.db"
+vault_path = Path("/home/janosch/AI-ML-Systems/AI & cML Systems")
 
 
 def get_notes():
@@ -15,9 +14,6 @@ def read_notes(path):
     return path.read_text(encoding="utf-8")
 
 if __name__ == "__main__":
-    create_database(db_conversation)
-    create_database(db_memory)
-
     notes = get_notes()
     context = ""
     for note in notes:
@@ -36,14 +32,20 @@ if __name__ == "__main__":
             break
 
         answer = ask_gemma(
-            prompt_file="../config/prompt.txt",
             question=question,
             context=context
         )
 
         print(f"Antwort: {answer}")
 
-        conversation_id = str(uuid.uuid4())
-        insert_message(db_conversation, conversation_id, "user", question)
-        insert_message(db_conversation, conversation_id, "assistant", answer)
+        if "other" in answer:
+            print("Die Antwort enthält 'other', daher wird sie nicht in die Datenbank eingefügt.")
+            conversation_id = str(uuid.uuid4())
+            insert_memory(db_memory, "user", question)
+            insert_memory(db_memory, "assistant", answer)
+
+
+
+
+    
 

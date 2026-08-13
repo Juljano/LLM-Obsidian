@@ -1,33 +1,29 @@
 from ollama import chat
 from sql_conversation import *
 
-db_conversation = "../conversation/conversation_history.db"
-db_memory = "../conversation/memory.db"
+db_memory = "/home/janosch/KI & ML-Projekte/LLM-Obsidian/conversation/memory.db"
+prompt_file = "/home/janosch/KI & ML-Projekte/LLM-Obsidian/config/prompt.txt"
 
-def read_assistant_prompt(file_path):
+def read_prompt_file(file_path):
     with open(file_path, "r", encoding="utf-8") as file:
         return file.read()
 
 
-def ask_gemma(prompt_file, question, context):
+def ask_gemma(question, context):
 
-    messages = [{"role": "system", "content": read_assistant_prompt(prompt_file)}]
 
-    print(messages)
-
-    messages.extend(read_history_messages(db_conversation))
+    messages = [{"role": "system", "content": read_prompt_file(prompt_file)}]
     messages.extend(read_memory(db_memory))
 
     messages.append(
         {
             "role": "user",
             "content": f"""
-{context}
+            {context}
 
-{question}
-""",
-        }
-    )
+            {question}
+            """,
+        })
 
     response = chat(model="gemma4:e2b", messages=messages)
 
