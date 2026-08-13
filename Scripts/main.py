@@ -1,11 +1,12 @@
+import json
+import re
 from pathlib import Path
 from gemma4 import ask_gemma
 import uuid
 from sql_conversation import *
 
-db_conversation = "../conversation/conversation_history.db"
-db_memory = "../conversation/memory.db"
-vault_path = Path("/home/janosch/AI-ML-Systems/AI & ML Systems")
+db_memory = "/home/janosch/KI & ML-Projekte/LLM-Obsidian/conversation/memory.db"
+vault_path = Path("/home/janosch/AI-ML-Systems/AI & cML Systems")
 
 
 def get_notes():
@@ -14,10 +15,13 @@ def get_notes():
 def read_notes(path):
     return path.read_text(encoding="utf-8")
 
-if __name__ == "__main__":
-    create_database(db_conversation)
-    create_database(db_memory)
 
+def extract_memory(content):
+    json_match = re.search(r"```json\s*(.*?)\s*```", content, re.DOTALL)
+    memory = json.loads(json_match.group(1))
+    return memory.get("Zusammenfassung") if memory else None
+
+if __name__ == "__main__":
     notes = get_notes()
     context = ""
     for note in notes:
@@ -25,6 +29,8 @@ if __name__ == "__main__":
 
         context += f"\n--- {relative_path} ---\n"
         context += read_notes(note)
+
+        print(context)
 
     while True:
 
@@ -36,14 +42,20 @@ if __name__ == "__main__":
             break
 
         answer = ask_gemma(
-            prompt_file="../config/prompt.txt",
             question=question,
             context=context
         )
 
-        print(f"Antwort: {answer}")
+        print(f"Denise: {answer}")
 
-        conversation_id = str(uuid.uuid4())
-        insert_message(db_conversation, conversation_id, "user", question)
-        insert_message(db_conversation, conversation_id, "assistant", answer)
+        if "save" in answer and "true" in answer:
+            print("Die Antwort enthält 'true', daher wird sie in die Datenbank eingefügt.")
+            memory = extract_memory(answer)
+            conversation_id = str(uuid.uuid4())
+            insert_memory(db_memory, memory)
+
+
+
+
+    
 
