@@ -6,6 +6,9 @@ Das Projekt ermöglicht es, Fragen zu meinen Notizen zu stellen, Inhalte zusamme
 
 Aktuell werden die Obsidian-Notizen nur gelesen und nicht verändert.
 
+## Speichern von Informationen
+Wichtige Informationen werden in einer lokalen SQLite-Datenbank gespeichert und stehen der KI für zukünftige Gespräche zur Verfügung.
+
 ## Architektur
 
 Python ist die zentrale Anwendung und steuert die Kommunikation zwischen Obsidian, SQLite und Ollama.
