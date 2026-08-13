@@ -50,5 +50,3 @@ pip install ollama
 ```python
 python3 main.py
 ```
- ## Ziel
-Ein lokaler KI-Assistent, der meine Obsidian-Wissensbasis versteht und mich beim Lernen und Organisieren unterstützt.
