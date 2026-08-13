@@ -22,21 +22,17 @@ def extract_memory(content):
     return memory.get("Zusammenfassung") if memory else None
 
 if __name__ == "__main__":
-    notes = get_notes()
+    all_notes = get_notes()
     context = ""
-    for note in notes:
+    for note in all_notes:
         relative_path = note.relative_to(vault_path)
 
         context += f"\n--- {relative_path} ---\n"
         context += read_notes(note)
 
-        print(context)
-
     while True:
 
-        question = input(
-            "Stelle eine Frage an Denise ('exit' zum Beenden): "
-        )
+        question = input("Stelle eine Frage an Denise ('exit' zum Beenden): ")
 
         if question.lower() == "exit":
             break
