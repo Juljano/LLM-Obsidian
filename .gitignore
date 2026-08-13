@@ -159,3 +159,14 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 .idea/vcs.xml
+conversation/memory.db
+.idea/workspace.xml
+.idea/webResources.xml
+.idea/pyLspTools.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/inspectionProfiles/profiles_settings.xml
+.idea/dataSources/data_sources_history.xml
+.idea/dataSources/9f6fdbb3-1019-4ca1-a77d-867c8fd153ba/storage_v2/_src_/schema/main.uQUzAA.meta
+.idea/dataSources/9f6fdbb3-1019-4ca1-a77d-867c8fd153ba.xml
+.idea/dataSources.local.xml
+.idea/dataSources.xml
