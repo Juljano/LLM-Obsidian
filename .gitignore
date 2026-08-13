@@ -23,7 +23,6 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-
 # ============================================================================
 # Virtual Environments
 # ============================================================================
@@ -53,6 +52,8 @@ conversation/memory.db
 *.db-journal
 data/
 logs/
+#Denise-Prompt.md
+!conversation/Denise-prompt.md
 
 # ============================================================================
 # Testing & Coverage
