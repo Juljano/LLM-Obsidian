@@ -18,7 +18,6 @@ def ask_gemma(question, context):
             "role": "user",
             "content": f"""
             {context}
-
             {question}
             """,
         })
